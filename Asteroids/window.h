@@ -7,6 +7,7 @@ public:
 	~window();
 
 	inline bool IsDone() { return m_IsDone; }
+	sf::RenderWindow* GetRenderWindow() { return &m_RenderWindow; }
 
 	void Create();
 	void Update();
@@ -16,7 +17,6 @@ public:
 	void Render(sf::Drawable& drawable);
 
 private:
-	sf::Window m_Window;
 	sf::RenderWindow m_RenderWindow;
 	const sf::Vector2u m_Size;
 

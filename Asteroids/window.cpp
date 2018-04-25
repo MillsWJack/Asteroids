@@ -13,14 +13,14 @@ window::~window()
 
 void window::Create()
 {
-	m_Window.create({ m_Size.x, m_Size.y }, m_Title);
-	m_Window.setFramerateLimit(60);
+	m_RenderWindow.create({ m_Size.x, m_Size.y }, m_Title);
+	m_RenderWindow.setFramerateLimit(60);
 }
 
 void window::Update()
 {
 	sf::Event event;
-	while (m_Window.pollEvent(event))
+	while (m_RenderWindow.pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed 
 			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -32,7 +32,7 @@ void window::Update()
 
 void window::Destroy()
 {
-	m_Window.close();
+	m_RenderWindow.close();
 }
 
 void window::StartDraw()

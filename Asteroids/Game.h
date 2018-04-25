@@ -1,7 +1,10 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
+
 #include "window.h"
+#include "Player.h"
+#include <iostream>
 
 class Game
 {
@@ -17,5 +20,6 @@ public:
 
 private:
 	window m_Window;
+	Player m_Player;
 };
 
