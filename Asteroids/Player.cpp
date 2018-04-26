@@ -7,6 +7,8 @@ Player::Player(float XSize, float YSize, float XPos, float YPos)
 	m_XPos = XPos;
 	m_YPos = YPos;
 
+	m_MoveSpeed = 10;
+
 	m_PolygonShape.setRadius(m_XSize);
 	m_PolygonShape.setPointCount(m_YSize);
 	m_PolygonShape.setOrigin(30, 30);

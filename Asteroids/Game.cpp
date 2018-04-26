@@ -26,12 +26,7 @@ void Game::HandleInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		//Move ship forward
-		m_Player.Move(5);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		//Move ship backwards
-		m_Player.Move(-5);
+		m_Player.Move();
 	}
 }
 
@@ -40,7 +35,11 @@ void Game::Update()
 	m_Window.Update();
 	m_Player.Update();
 
+	//~~~DEBUG OUTPUTS~~~//
+	system("CLS");
 	std::cout << "Player Rotation: " << m_Player.m_Rotation << std::endl;
+	std::cout << "Player xPos: " << m_Player.m_XPos << std::endl;
+	std::cout << "Player yPos: " << m_Player.m_YPos << std::endl;
 }
 
 void Game::Render()
@@ -49,14 +48,6 @@ void Game::Render()
 	
 	//Draw here
 	m_Player.Render(*m_Window.GetRenderWindow());
-
-	//~~~DEBUG~~~
-	//Drawing point at head of ship
-	sf::RectangleShape shape;
-	shape.setPosition(m_Player.m_XPos, m_Player.m_YPos - m_Player.m_PolygonShape.getRadius());
-	shape.setSize(sf::Vector2f(5, 5));
-	m_Window.GetRenderWindow()->draw(shape);
-	//~~~DEBUG~~~
 
 	m_Window.EndDraw();
 }
