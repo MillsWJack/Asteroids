@@ -4,6 +4,8 @@
 
 #include "window.h"
 #include "Player.h"
+#include "Bullet.h"
+
 #include <iostream>
 
 class Game
@@ -21,5 +23,7 @@ public:
 private:
 	window m_Window;
 	Player m_Player;
+
+	std::vector<Bullet*> m_BulletList;
 };
 

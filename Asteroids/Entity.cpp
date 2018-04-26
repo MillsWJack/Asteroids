@@ -1,8 +1,13 @@
 #include "Entity.h"
 
-Entity::Entity():
-	m_Rotation(m_PolygonShape.getRotation())
+Entity::Entity(sf::Vector2f size, sf::Vector2f pos, float speed):
+	m_Rotation(m_PolygonShape.getRotation()),
+	m_Size(size),
+	m_Pos(pos),
+	m_MoveSpeed(speed)
 {
+	m_PolygonShape.setRadius(m_Size.x);
+	m_PolygonShape.setPointCount(m_Size.y);
 }
 
 Entity::~Entity()
@@ -11,8 +16,11 @@ Entity::~Entity()
 
 void Entity::Move()
 {
-	m_XPos += (sin((M_PI / 180) * m_Rotation) * m_MoveSpeed);
-	m_YPos += (-cos((M_PI / 180) * m_Rotation) * m_MoveSpeed);
+	//Convert angle from degrees to radians
+	double angle = (M_PI / 180) * m_Rotation;
+
+	m_Pos.x += (sin(angle)) * m_MoveSpeed;
+	m_Pos.y += (-cos(angle)) * m_MoveSpeed;
 }
 
 void Entity::Rotate(float angle)
@@ -27,7 +35,7 @@ void Entity::Rotate(float angle)
 
 void Entity::Render(sf::RenderWindow& window)
 {
-	m_PolygonShape.setPosition(m_XPos, m_YPos);
+	m_PolygonShape.setPosition(m_Pos.x, m_Pos.y);
 	window.draw(m_PolygonShape);
 }
 
@@ -39,23 +47,23 @@ void Entity::Update()
 void Entity::HandleScreenCollisions()
 {
 	//check up
-	if (m_YPos + m_PolygonShape.getRadius() < 0)
+	if (m_Pos.y + m_PolygonShape.getRadius() < 0)
 	{
-		m_YPos = 1080;
+		m_Pos.y = 1080;
 	}
 	//check down
-	else if (m_YPos - m_PolygonShape.getRadius() > 1080)
+	else if (m_Pos.y - m_PolygonShape.getRadius() > 1080)
 	{
-		m_YPos = 0;
+		m_Pos.y = 0;
 	}
 	//check right
-	else if (m_XPos - (m_PolygonShape.getRadius()) > 1920)
+	else if (m_Pos.x - (m_PolygonShape.getRadius()) > 1920)
 	{
-		m_XPos = 0;
+		m_Pos.x = 0;
 	}
 	//check left
-	else if (m_XPos + m_PolygonShape.getRadius() < 0)
+	else if (m_Pos.x + m_PolygonShape.getRadius() < 0)
 	{
-		m_XPos = 1920;
+		m_Pos.x = 1920;
 	}
 }

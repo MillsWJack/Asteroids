@@ -7,12 +7,9 @@
 class Entity
 {
 public:
-	Entity();
+	Entity(sf::Vector2f size, sf::Vector2f pos, float speed);
 	~Entity();
 
-	float m_XPos, m_YPos;
-	float m_XSize, m_YSize;
-	float m_MoveSpeed;
 	float m_Rotation;
 
 	sf::CircleShape m_PolygonShape;
@@ -20,7 +17,16 @@ public:
 	void Move();
 	void Rotate(float angle);
 	void Render(sf::RenderWindow& window);
-	void Update();
+	void virtual Update();
 	void HandleScreenCollisions();
+
+	sf::Vector2f& GetPos() { return m_Pos; }
+	sf::Vector2f& GetSize() { return m_Size; }
+
+private:
+	sf::Vector2f m_Pos;
+	sf::Vector2f m_Size;
+
+	float m_MoveSpeed;
 };
 
