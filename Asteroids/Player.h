@@ -5,7 +5,9 @@
 class Player: public Entity
 {
 public:
-	Player(sf::Vector2f size, sf::Vector2f pos, float speed);
+	Player(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f velocity);
 	~Player();
+
+private:
 };
 
