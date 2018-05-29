@@ -1,16 +1,14 @@
 #include "Entity.h"
 
-Entity::Entity(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f velocity, sf::Vector2f accelleration):
-	m_Rotation(m_PolygonShape.getRotation()),
+Entity::Entity(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f velocity, sf::Vector2f accelleration, int sprite):
 	m_Size(size),
 	m_Pos(pos),
 	m_Velocity(velocity),
-	m_Acceleration(accelleration)
+	m_Acceleration(accelleration),
+	m_SpriteNum(sprite)
 {
 	m_VelocityLimit = 20;
-	m_Thrust = 1;
-	m_PolygonShape.setRadius(m_Size.x);
-	m_PolygonShape.setPointCount(m_Size.y);
+	m_Thrust = 0.1;
 }
 
 Entity::~Entity()
@@ -28,7 +26,7 @@ void Entity::Move()
 
 void Entity::Rotate(float angle)
 {
-	m_PolygonShape.setRotation(m_Rotation += angle);
+	m_Sprite.setRotation(m_Rotation += angle);
 
 	if (m_Rotation >= 360 || m_Rotation <= -360)
 	{
@@ -38,8 +36,9 @@ void Entity::Rotate(float angle)
 
 void Entity::Render(sf::RenderWindow& window)
 {
-	m_PolygonShape.setPosition(m_Pos.x, m_Pos.y);
-	window.draw(m_PolygonShape);
+	//m_PolygonShape.setPosition(m_Pos.x, m_Pos.y);
+	m_Sprite.setPosition(m_Pos.x, m_Pos.y);
+	window.draw(m_Sprite);
 }
 
 void Entity::Update()
@@ -62,22 +61,22 @@ void Entity::Update()
 void Entity::HandleScreenCollisions()
 {
 	//check up
-	if (m_Pos.y + m_PolygonShape.getRadius() < 0)
+	if (m_Pos.y + m_Sprite.getTextureRect().height / 2< 0)
 	{
 		m_Pos.y = 1080;
 	}
 	//check down
-	else if (m_Pos.y - m_PolygonShape.getRadius() > 1080)
+	else if (m_Pos.y - m_Sprite.getTextureRect().height / 2 > 1080)
 	{
 		m_Pos.y = 0;
 	}
 	//check right
-	else if (m_Pos.x - (m_PolygonShape.getRadius()) > 1920)
+	else if (m_Pos.x - m_Sprite.getTextureRect().width / 2 > 1920)
 	{
 		m_Pos.x = 0;
 	}
 	//check left
-	else if (m_Pos.x + m_PolygonShape.getRadius() < 0)
+	else if (m_Pos.x + m_Sprite.getTextureRect().width / 2 < 0)
 	{
 		m_Pos.x = 1920;
 	}

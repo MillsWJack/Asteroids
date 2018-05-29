@@ -14,7 +14,6 @@ window::~window()
 void window::Create()
 {
 	m_RenderWindow.create({ m_Size.x, m_Size.y }, m_Title);
-	m_RenderWindow.setFramerateLimit(60);
 }
 
 void window::Update()
